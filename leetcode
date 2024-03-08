@@ -1,0 +1,18 @@
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        k = 0  # unique number of elements
+        # in place looping
+        for i in range(0, len(nums) -1):
+            # make sure its unique
+            if(nums[i] == nums[i+1]):
+                self.delete(nums, i+1)
+            # keep track of unique elements
+            else:
+                k += 1
+        return k
+        
+    def delete(self, nums: List[int], index: int):
+        # Shift everything over
+        for i in range(index, len(nums) - 1):
+            nums[i] = nums[i+1]
+        nums[-1] = "_"
