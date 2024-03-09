@@ -6,6 +6,7 @@ class Solution:
             # make sure its unique
             if(nums[i] == nums[i+1]):
                 self.delete(nums, i+1)
+                i -= 1
             # keep track of unique elements
             else:
                 k += 1
