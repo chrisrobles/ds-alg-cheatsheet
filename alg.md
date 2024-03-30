@@ -1,17 +1,5 @@
 # Algorithms
 
-## Edge case checking
-
-> Input = anything you are operating on to get output
-> > Input could be provided or it could have already exist in a variable
-
-**If you have input, you have to validate it.**
-- Not empty
-- Correct type
-- Need to compare? Is input > 1?
-
-**Never make any assumptions about your input**
-
 ## Time Complexity
 
 The time of execution.
@@ -30,7 +18,25 @@ USUALLY access is instant.
 
 Not always fast, there could be 1000 operations and the time complexity could still be O(1).
 
+### Amortized
+
+Average time per operation
+- Used to ensure the average performance is acceptable, even if some individual operations might take longer
+
 ## Space Complexity
+
+*Not as relevant as time complexity* 
+
+## Edge case checking
+
+> Input = anything you are operating on to get output
+
+**If you have input, you have to validate it.**
+- Not empty
+- Correct type
+- Need to compare? Input needs > 1
+
+**Never make any assumptions about your input**
 
 ## Sorting Algorithms
 
@@ -38,7 +44,13 @@ Not always fast, there could be 1000 operations and the time complexity could st
 
 Best for when data is small
 
-## Common problems
+## Common Algorithms
+
+### Shifting
+
+Start at the beginning of the direction you are shifting
+- Shifting everything to the left? Start at the left side
+- Shifting everything to the right? Start at the right side
 
 ### In-place algorithm
 
@@ -53,15 +65,20 @@ i.e. dont create another array for storing values, just edit the existing array
 3) Move the data at `R` to `L` when condition is met
    `if(myList[L] != myList[R])`
 4) BE CAREFUL how you update `L`
-   - If `L` starts at 0, might need to add 1 at the end
+   - Keep in mind if `L` starts at 0, +1 for the length of L elements 
 
 ### Get min
 
-If data is sorted getting min easily is O(1).
+If data is sorted, getting min is O(1).
+
+#### Static data
 
 If the input is not changing, you can just get the minimum.
 
-However if the input is changing (added and removed from) and you need the minimum dynamically, then a minimum state stack is required.
+#### Dynamic data
+
+However if the input is changing (added and removed from) and you need the minimum dynamically, then a minimum state stack should be used. 
+This prevents having to find the minimum everytime the data is changed.
 
 Keep track of the minimum state at every entry of input
 - input stack
@@ -69,13 +86,16 @@ Keep track of the minimum state at every entry of input
 
 Need to keep both stacks in sync. So if you push/pop from input stack you push/pop to the minimum state stack.
 
-### Combine Linked List
+### Combine Linked Lists
 
 <mark> DONT THINK OF LINKED LIST AS ARRAY</mark>
 
-Useful to have beginning be dummy node, then at the end of combining them you set head to dummy.next (the true head of the list)
-
-**Once one list runs out** you dont have to keep looping through the other!
+Tips:
+- **Once one list runs out** you dont have to keep looping through the other! 
+  - Just `new.next = list2`
+  - Where `list2` is pointing to a node in the remaining list that hasnt been added yet
+- Useful to have beginning be dummy node, then at the end of combining them you set head to dummy.next (the true head of the list)
+  - That way you have a dedicated entry into new list
 
 ### Factorial
 
@@ -90,3 +110,7 @@ def factorial(num: int) -> int:
         return 1
     return num * factorial(num-1)
 ```
+
+### Fibonacci
+
+Use recursion just like factorial

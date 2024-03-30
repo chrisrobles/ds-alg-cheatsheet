@@ -17,6 +17,8 @@ Random Access Memory
 1 byte = 8 bits
 
 ### Hexadecimal
+0xA3
+
 1 hex = 4 bits
 
 2 hex = 8 bits = 1 byte
@@ -56,7 +58,7 @@ Cant set the value to a default value because it will break the contiguous order
 
 So we must shift everything after `i`, one index to the left.
 
-Worst case would be deleting from the beginning, which would require n-1 shifts.
+Worst case would be deleting from the beginning, which would require n-1 shifts ( O(n) ).
 
 ```python
 def deleteMiddle(arr, i, length):
@@ -89,13 +91,17 @@ Can change size. (Dont need their size specified.)
 
 Default in *loosely typed languages*.
 - Python
+- PHP
 - JS
 
 #### Complexity
 
-Read: O(1)
-Insertion: O(1) (O(n) if in middle but amortized O(1))
-Deletion: O(1) (O(n) if in middle but amortized O(1))
+| Read | Insertion                                                        | Deletion                                                              |
+|------|------------------------------------------------------------------|-----------------------------------------------------------------------|
+| O(1) | Ends: Amortized O(1)<br/>Middle: O(n) | Ends: Amortized O(1)<br/>Middle: O(n) |
+
+> Amortized - average time per operation
+> > Use to ensure the average performance is acceptable, even if some individual operations might take longer
 
 #### Reallocate - O(n)
 When the array gets too big for its allocation, it reallocates a bigger array (usually double) in memory. (Also it deallocates the old array.)
@@ -144,36 +150,36 @@ class DynamicArray:
 
 ## Stack
 
-LIFO
+LIFO - Last in First out
+
+<mark>Stack should be empty at end to be valid</mark>
 
 Useful to:
 - reverse sequences
-- apply operator to previous entries (Pre / Post Order)
-  - PS verify stack is empty at end to be valid
+  - recursion goes in reverse because it pops off the call stack
+- Pre / Post Order Operations (56+)
 
-### Push - O(1)
-Adds to the top
+### Operations & Complexity
 
-### Pop - O(1)
-Removes from the top
-
-### Peek - O(1)
-Returns whats at the top
+| Push       | Pop             | Peek          |
+|------------|-----------------|---------------|
+| Add to top | Remove from top | Read from top |
+| O(1)       | O(1)            | O(1)          |
 
 ## Linked List
 
 Ordered sequence of nodes w/ a value and next pointer
-- may be ordered but stored randomly in memory
+- stored randomly in memory
 
-<mark> DONT THINK OF LINKED LIST AS ARRAY</mark>
+<mark> DONT THINK OF A LINKED LIST AS AN ARRAY</mark>
+
 - focus on each node as an individual
 
 ### Complexity
 
-Access: O(n)
-Search: O(n)
-Insert at known: O(1)
-Delete at known: O(1)
+| Read | Insert | Delete |
+|------|--------|--------|
+| O(n) | O(1)   | O(1)   |
 
 ### List Node Example
 
