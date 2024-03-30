@@ -3,11 +3,12 @@
 ## RAM
 Random Access Memory
 
-![img.png](img.png)
+![img.png](assets/img.png)
 
 ### Address
 - Stores a byte value
-- 4 bytes apart 
+- 4 bytes apart
+  - Since one int is 4 bytes
 
 ### Bit
 1's and 0's
