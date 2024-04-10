@@ -1,52 +1,38 @@
-class MyLinkedList:
+class MyStack:
 
     def __init__(self):
+        q1 = MyQueue()
+        q2 = MyQueue()
+
+    def push(self, x: int) -> None:
+        
+
+    def pop(self) -> int:
+        
+
+    def top(self) -> int:
+        
+
+    def empty(self) -> bool:
+class MyQueue:
+    def __init__(self):
         self.head = None
-        self.tail = None
-        self.length = 0
-
-    def get(self, index: int) -> int:
-        if index < 0 or index >= length:
-            return -1
-        i = 0
-        curr = self.head
-        while i != index:
-            i += 1
-            curr = curr.next
-        return curr.val
-
-    def addAtHead(self, val: int) -> None:
-        curr = Node(val)
-        curr.next = self.head
-        if not self.length:
-            self.tail = curr
+    def push(self, x: int) -> None:
+        new = Node(x)
+        if self.head:
+            self.head.next = new
         else:
-            self.head.prev = curr
-        self.head = curr
-
-    def addAtTail(self, val: int) -> None:
-        curr = Node(val)
-        curr.prev = self.tail
-        if not self.length:
-            self.head = curr
-        else:
-            self.tail.next = curr
-
-    def addAtIndex(self, index: int, val: int) -> None:
-
-
-    def deleteAtIndex(self, index: int) -> None:
-
+            self.head = new
+    def pop(self) -> int:
+        
+    def top(self) -> int:
 class Node:
-    def __init(self, val):
-        self.val = val
+    def __init__(self, value):
+        self.value = value
         self.next = None
-        self.prev = None
-
-# Your MyLinkedList object will be instantiated and called as such:
-# obj = MyLinkedList()
-# param_1 = obj.get(index)
-# obj.addAtHead(val)
-# obj.addAtTail(val)
-# obj.addAtIndex(index,val)
-# obj.deleteAtIndex(index)
+# Your MyStack object will be instantiated and called as such:
+# obj = MyStack()
+# obj.push(x)
+# param_2 = obj.pop()
+# param_3 = obj.top()
+# param_4 = obj.empty()

@@ -10,13 +10,35 @@ Remove the constants.
 - We dont care about constants because constants only matter at smaller inputs which are insignificant to our CPU.
 - If you mapped n^2 and 2n on a graph, 2n would be higher than n^2 in terms of runtime (y) only for smaller input (x). Eventually they would intersect and n^2 will always be bigger
 
-### O(1) 
+### O(1)
 
 Number of operations is constant relative to the input size.
 
 USUALLY access is instant.
 
 Not always fast, there could be 1000 operations and the time complexity could still be O(1).
+
+### O(2n)
+
+2 n's
+
+
+ _ | _ | _ | _ | _
+---------|----------|---------|---------|---------
+ n | n | n | n | n
+ n | n | n | n | n 
+
+### O(n^2)
+
+For every n is a n (square)
+
+_ | _ | _ | _ | _
+---------|----------|---------|---------|----------
+ n | n | n | n | n
+ n | n | n | n | n
+ n | n | n | n | n
+ n | n | n | n | n
+ n | n | n | n | n
 
 ### Amortized
 
@@ -78,7 +100,7 @@ If the input is not changing, you can just get the minimum.
 #### Dynamic data
 
 However if the input is changing (added and removed from) and you need the minimum dynamically, then a minimum state stack should be used. 
-This prevents having to find the minimum everytime the data is changed.
+This prevents having to find the minimum every time the data is changed.
 
 Keep track of the minimum state at every entry of input
 - input stack
