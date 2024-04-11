@@ -1,35 +1,113 @@
+def update_decorator(func):
+    def wrapper(deque_instance, *args, **kwargs):
+        print(f"{func.__name__}({', '.join(map(str, args))}) ")
+        # Call the original method (like 'add' or 'remove')
+        result = func(deque_instance, *args, **kwargs)
+        
+        # After calling the original method
+        deque_instance.traverse()
+        
+        return result
+    return wrapper
 class MyStack:
-
     def __init__(self):
-        q1 = MyQueue()
-        q2 = MyQueue()
-
+        self.q1 = MyQueue()
+        self.q2 = MyQueue()
     def push(self, x: int) -> None:
-        
+        if self.q1.length == self.q2.length:
+            self.q2.push(x)
+        else:
+            self.q1.push(x)
 
+    # Remove everything and re-add everything until you find the tail
     def pop(self) -> int:
-        
+        if not self.q1.length and not self.q2.length:
+            return -1
+        if self.q1.length == self.q2.length: # self.q2 last added to
+            tail = self.q2.tail
+            while tail != self.q2.head:
+                self.q2.push(self.q2.pop())
+            return self.q2.pop()
+        else: # self.q1 last added to 
+            tail = self.q1.tail
+            while tail != self.q1.head:
+                self.q1.push(self.q1.pop())
+            return self.q1.pop()
 
+    # Remove everything and re-add everything until you find the tail
     def top(self) -> int:
-        
+        if not self.q1.length and not self.q2.length:
+            return -1
+        if self.q1.length == self.q2.length: # self.q2 last added to
+            tail = self.q2.tail
+            while tail != self.q2.head:
+                self.q2.push(self.q2.pop())
+            temp = self.q2.pop()
+            self.q2.push(temp)
+            return temp
+        else: # self.q1 last added to 
+            tail = self.q1.tail
+            while tail != self.q1.head:
+                self.q1.push(self.q1.pop())
+            temp = self.q1.pop()
+            self.q1.push(temp)
+            return temp
 
     def empty(self) -> bool:
+        if self.q1.length:
+            return True
+        return False
+    
+    def traverse(self) -> None:
+        curr = self.head
+        while curr:
+            extra = ""
+            if(curr == self.head):
+                extra += "H"
+            if(curr == self.tail):
+                extra += "T"
+            print(extra + str(curr.value),end="->")
+            curr = curr.next
+        print("")
+
 class MyQueue:
     def __init__(self):
         self.head = None
+        self.tail = None
+        self.length = 0
     def push(self, x: int) -> None:
         new = Node(x)
-        if self.head:
-            self.head.next = new
+        if self.tail:
+            self.tail.next = new
+            self.tail = new
         else:
             self.head = new
+            self.tail = new
+        self.length += 1
     def pop(self) -> int:
-        
+        if not self.head:
+            return -1
+        temp = self.head.value
+        self.head = self.head.next
+        self.length -= 1
+        return temp
     def top(self) -> int:
+        if not self.head:
+            return -1
+        return self.head.value
 class Node:
     def __init__(self, value):
         self.value = value
         self.next = None
+        
+myStack = MyStack()
+myStack.push(1)
+myStack.push(2)
+myStack.top()
+myStack.pop()
+myStack.empty()
+
+
 # Your MyStack object will be instantiated and called as such:
 # obj = MyStack()
 # obj.push(x)
