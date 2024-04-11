@@ -59,7 +59,7 @@ class MyStack:
         return False
     
     def traverse(self) -> None:
-        curr = self.head
+        curr = self.q1.head
         while curr:
             extra = ""
             if(curr == self.head):
@@ -69,7 +69,16 @@ class MyStack:
             print(extra + str(curr.value),end="->")
             curr = curr.next
         print("")
-
+        curr = self.q2.head
+        while curr:
+            extra = ""
+            if(curr == self.head):
+                extra += "H"
+            if(curr == self.tail):
+                extra += "T"
+            print(extra + str(curr.value),end="->")
+            curr = curr.next
+        print("")
 class MyQueue:
     def __init__(self):
         self.head = None
