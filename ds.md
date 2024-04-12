@@ -152,12 +152,15 @@ class DynamicArray:
 
 LIFO - Last in First out
 
+*use list*
+
 <mark>Stack should be empty at end to be valid</mark>
 
 Useful to:
 - reverse sequences
   - recursion goes in reverse because it pops off the call stack
 - Pre / Post Order Operations (56+)
+- Work on to do list by starting with smallest task
 
 ### Operations & Complexity
 
@@ -252,7 +255,6 @@ Linked list with an added `prev` pointer
 
 Useful to:
 - build stack
-- 
 
 ### Complexity
 Access: O(n)
@@ -262,20 +264,50 @@ Deletion at known: O(1)
 
 ## Queues
 
-FIFO
+FIFO | "First come first serve"
 
-Implemented with linked list
+*use linked list*
+
+<mark>Queue should be empty at end to be valid</mark>
 
 Useful for:
-- breadth first search for trees and graphs
+- Removing from the beginning O(1)
+  - Arrays cant do that because it would need to shift everything
+- breadth first search
 
 ### Enqueue - O(1)
 Enter queue at `tail`
 
+```python
+def enqueue(self, val):
+    newNode = ListNode(val)
+
+    # Queue is non-empty
+    if self.right:
+        self.right.next = newNode
+        self.right = self.right.next
+    # Queue is empty
+    else:
+        self.left = self.right = newNode
+```
+
 ### Dequeue - O(1)
 Remove from queue at `head`
+- Check it's not empty first
 
-**Check if queue is empty before removing**
+```python
+def dequeue(self):
+    # Queue is empty
+    if not self.left:
+        return None
+    
+    # Remove left node and return value
+    val = self.left.val
+    self.left = self.left.next
+    if not self.left:
+        self.right = None
+    return val
+```
 
 ## Deque | "deck"
 Double-ended queue
@@ -283,11 +315,16 @@ Double-ended queue
 Add and remove from both ends
 
 ## Recursion - O(n) time and space
-When a function calls itself with a smaller output until a base case is reached
+When a function calls itself with a smaller input until a base case is reached
 
 recursive function = 
 1. base case
-2. function calling itself with a different input
+2. calling itself with a different input
+
+- When you think of recursion, think of stacks
+  - it uses the call stack
+
+
 
 Useful for:
 - working backwards
