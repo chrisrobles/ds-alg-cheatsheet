@@ -1,5 +1,7 @@
 # Data Structures
 
+- [ ] Find best way to implement in Python 3
+
 ## RAM
 Random Access Memory
 
@@ -256,11 +258,144 @@ Linked list with an added `prev` pointer
 Useful to:
 - build stack
 
+
 ### Complexity
 Access: O(n)
 Search: O(n)
 Insertion at known: O(1)
 Deletion at known: O(1)
+
+### Example
+```python
+
+def update_decorator(func):
+    def wrapper(linked_list_instance, *args, **kwargs):
+        print(f"{func.__name__}({', '.join(map(str, args))}) ")
+        # Call the original method (like 'add' or 'remove')
+        result = func(linked_list_instance, *args, **kwargs)
+        
+        # After calling the original method
+        linked_list_instance.traverse()
+        
+        return result
+    return wrapper
+class MyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+        self.length = 0
+
+    def get(self, index: int) -> int:
+        if index < 0 or index >= self.length:
+            return -1
+        i = 0
+        curr = self.head
+        while i != index:
+            i += 1
+            curr = curr.next
+        return curr.val
+    
+    @update_decorator
+    def addAtHead(self, val: int) -> None:
+        new = Node(val)
+        new.next = self.head
+        if not self.length:
+            self.tail = new
+        else:
+            self.head.prev = new
+        self.head = new
+        self.length += 1
+    
+    @update_decorator
+    def addAtTail(self, val: int) -> None:
+        new = Node(val)
+        new.prev = self.tail
+        if not self.length:
+            self.head = new
+        else:
+            self.tail.next = new
+        self.tail = new
+        self.length += 1
+    
+    @update_decorator
+    def addAtIndex(self, index: int, val: int) -> None:
+        if index < 0 or index > self.length:
+            return
+        if(index == 4 and val == 3):
+            print(self.length)
+        if index == self.length:
+            self.addAtTail(val)
+            return
+        if index == 0:
+            self.addAtHead(val)
+            return
+
+        i = 0
+        curr = self.head
+        
+        while i != index:
+            i += 1
+            curr = curr.next
+        new = Node(val)
+        new.next = curr
+        new.prev = curr.prev
+        new.prev.next = new
+        curr.prev = new
+        self.length += 1
+    
+    @update_decorator
+    def deleteAtIndex(self, index: int) -> None:
+        if index < 0 or index >= self.length:
+            return
+        i = 0
+        curr = self.head
+        while i != index:
+            i += 1
+            curr = curr.next
+        if curr.prev:
+            curr.prev.next = curr.next
+        else:
+            self.head = curr.next
+        if curr.next:
+            curr.next.prev = curr.prev
+        else:
+            self.tail = curr.prev
+        curr.prev = None
+        curr.next = None
+        self.length -= 1
+        
+    def traverse(self) -> None:
+        curr = self.head
+        print(self.length, end=" ")
+        while curr:
+            extra = ""
+            if(curr == self.head):
+                extra += "H"
+            if(curr == self.tail):
+                extra += "T"
+            print(extra + str(curr.val),end="->")
+            curr = curr.next
+        print("")
+
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.next = None
+        self.prev = None
+
+obj = MyLinkedList()
+obj.addAtHead(0)
+obj.addAtIndex(1,4)
+obj.addAtTail(8)
+obj.addAtHead(5)
+obj.addAtIndex(4,3)
+obj.addAtTail(0)
+obj.addAtTail(5)
+obj.addAtIndex(6,3)
+obj.deleteAtIndex(7)
+obj.deleteAtIndex(5)
+obj.addAtTail(4)
+```
 
 ## Queues
 
@@ -313,6 +448,105 @@ def dequeue(self):
 Double-ended queue
 
 Add and remove from both ends
+
+```python
+def update_decorator(func):
+    def wrapper(deque_instance, *args, **kwargs):
+        print(f"{func.__name__}({', '.join(map(str, args))}) ")
+        # Call the original method (like 'add' or 'remove')
+        result = func(deque_instance, *args, **kwargs)
+        
+        # After calling the original method
+        deque_instance.traverse()
+        
+        return result
+    return wrapper
+class Deque: 
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    def isEmpty(self) -> bool:
+        if not self.head:
+            return True
+        return False
+    
+    @update_decorator
+    def append(self, value: int) -> None:
+        new = Node(value)
+        if self.isEmpty():
+            self.head = new
+            self.tail = new
+            return
+        self.tail.next = new
+        new.prev = self.tail
+        self.tail = new
+        
+    @update_decorator
+    def appendLeft(self, value: int) -> None:
+        new = Node(value)
+        if self.isEmpty():
+            self.head = new
+            self.tail = new
+            return
+        self.head.prev = new
+        new.next = self.head
+        self.head = new
+        
+    @update_decorator
+    def pop(self) -> int:
+        if self.isEmpty():
+            return -1
+        temp = self.tail.value
+        self.tail = self.tail.prev
+        if self.tail:
+            self.tail.next = None
+        else:
+            self.head = None
+        return temp
+    
+    @update_decorator
+    def popLeft(self) -> int:
+        if self.isEmpty():
+            return -1
+        temp = self.head.value
+        self.head = self.head.next
+        if self.head:
+            self.head.prev = None
+        else:
+            self.tail = None
+        return temp
+    
+    def traverse(self) -> None:
+        curr = self.head
+        while curr:
+            extra = ""
+            if(curr == self.head):
+                extra += "H"
+            if(curr == self.tail):
+                extra += "T"
+            print(extra + str(curr.value),end="->")
+            curr = curr.next
+        print("")
+        
+class Node:
+    def __init__(self, val):
+        self.value = val
+        self.next = None
+        self.prev = None
+       
+myDeq = Deque() 
+myDeq.isEmpty()
+myDeq.append(10)
+myDeq.isEmpty()
+myDeq.appendLeft(20)
+myDeq.popLeft()
+myDeq.pop()
+myDeq.pop()
+myDeq.append(30)
+myDeq.pop()
+myDeq.isEmpty()
+```
 
 ## Recursion - O(n) time and space
 When a function calls itself with a smaller input until a base case is reached
