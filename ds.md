@@ -258,8 +258,7 @@ Linked list with an added `prev` pointer
 Useful to:
 - build stack
 
-
-### Complexity
+### Time Complexity
 Access: O(n)
 Search: O(n)
 Insertion at known: O(1)
@@ -548,21 +547,11 @@ myDeq.pop()
 myDeq.isEmpty()
 ```
 
-## Recursion - O(n) time and space
-When a function calls itself with a smaller input until a base case is reached
+## Binary Tree
 
-recursive function = 
-1. base case
-2. calling itself with a different input
+### Time Complexity
 
-- When you think of recursion, think of stacks
-  - it uses the call stack
-
-
-
-Useful for:
-- working backwards
-  - reversing
-  - depth first search on trees
-
-The O(n) space complexity comes from the method calls getting put into the call stack and if there are n method calls there are n methods in the call stack
+1) 1st level is 1 node, 2nd level is 2 nodes, 3rd level there is 4 nodes.
+2) The pattern is the number of nodes is 2x / **doubles** the previous level
+3) Double each at each level means multiple by 2 at each level which means **2^n**
+4) Since we have to traverse to the last level, it is **O(n)**
